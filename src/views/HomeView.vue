@@ -71,7 +71,7 @@ export default {
           key: "actions",
           label: "Actions"
         }
-      ] 
+      ],
     };
   },
   computed: {
