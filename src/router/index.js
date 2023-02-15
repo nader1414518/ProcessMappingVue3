@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import TokenUtility from '@/utilities/TokenUtility'
+import axios from 'axios'
 
 const routes = [
   {
@@ -12,6 +14,7 @@ const routes = [
     name: 'login',
     component: () => import("@/views/core/LoginPage.vue"),
   },
+  { path: '/:pathMatch(.*)*', name: 'not_found', component: () => import("@/views/core/NotFoundPage.vue") },
 ]
 
 const router = createRouter({
@@ -23,13 +26,18 @@ router.beforeEach((to, form, next) => {
 
   const token = TokenUtility.getToken();
 
+  if (token && to.name === "login")
+  {
+    next({path: '/',replace: true});
+  }
+
   if (token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    if (to.name === "login") next({ name: 'home' });
   }
 
   if (to.name !== "login" && !token) next({ name: 'login' });
+
+  
 
   next();
 
