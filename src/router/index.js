@@ -10,6 +10,16 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/create_project',
+    name: 'create_project',
+    component: () => import("@/views/core/CreateProjectPage.vue")
+  },
+  {
+    path: '/project_editor/:id',
+    name: 'project_editor',
+    component: () => import("@/views/core/ProjectEditor.vue")
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import("@/views/core/LoginPage.vue"),
